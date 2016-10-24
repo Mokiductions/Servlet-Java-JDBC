@@ -108,10 +108,7 @@ public class DbServlet extends HttpServlet {
             alumne = dbHandler.getAlumneInfo(conn, Integer.parseInt(code));
             System.out.println(alumne.getAssignatures());
             Gson gson = new Gson();
-            //JsonElement jsonElmnt;
-            JsonArray jsonArr;
             String jsonObj = gson.toJson(alumne);
-            //jsonArr = jsonObj.getAsJsonArray();
             System.out.println(jsonObj);
             response.setContentType("application/json");
             response.getWriter().print(jsonObj);

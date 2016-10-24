@@ -31,16 +31,21 @@
                     });
 
                 });
-                $.get('DbServlet', function (responseJson) {
-                    if (responseJson !== null) {
-                        var alumnSelect = $('#alumnesList');
-                        alumnSelect.find('option').remove();
-                        $.each(responseJson, function (key, value) {
-                            $('<option>').val(value['codi']).text(value['nom']).appendTo(alumnSelect);
-                        });
+                $.ajax({
+                    type: "GET",
+                    url: "DbServlet",
+                    dataType: "json",
+                    success: function (responseJson) {
+                        if (responseJson !== null) {
+                            var alumnSelect = $('#alumnesList');
+                            alumnSelect.find('option').remove();
+                            $.each(responseJson, function (key, value) {
+                                $('<option>').val(value['codi']).text(value['nom']).appendTo(alumnSelect);
+                            });
+                        }
                     }
                 });
-            });
+            });    
         </script>
     </head>
     <body style="font-family: arial;">
