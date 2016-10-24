@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package DB_Manage;
 
 import java.sql.Connection;
@@ -17,15 +16,18 @@ import java.sql.SQLException;
  */
 public class MySQLConnection {
 
-    private Connection connection;
-	
-	public MySQLConnection(String url, String usr, String pwd) 
-                throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");
-		this.connection = DriverManager.getConnection(url, usr, pwd);
-	}
-	
-	public Connection getConnection(){
-		return this.connection;
-	}
+    private final String url = "jdbc:mysql://localhost:3306/javatest_01";
+    private final String usr = "java_admin";
+    private final String pwd = "123456789";
+    private final Connection connection;
+
+    public MySQLConnection()
+            throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        this.connection = DriverManager.getConnection(url, usr, pwd);
+    }
+
+    public Connection getConnection() {
+        return this.connection;
+    }
 }

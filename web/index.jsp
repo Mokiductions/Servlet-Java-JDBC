@@ -15,7 +15,7 @@
             $(document).ready(function () {
                 $('#alumnesList').change(function (event) {
                     // Aquí la carga de la información de cada alumno al cambiar la selección
-                    var dataString = "code=" + $('#alumnesList').val() + "&name=" + $('#alumnesList option:selected').text();
+                    var dataString = "code=" + $('#alumnesList').val();
                     $.ajax({
                         type: "POST",
                         url: "DbServlet",

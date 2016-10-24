@@ -64,18 +64,13 @@ public class DbServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             ArrayList<Alumnes> alumnes = new ArrayList<Alumnes>();
-            String url = "jdbc:mysql://localhost:3306/javatest_01";
-            String usr = "java_admin";
-            String pwd = "123456789";
-            MySQLConnection mysql = new MySQLConnection(url, usr, pwd);
+            MySQLConnection mysql = new MySQLConnection();
             Connection conn = mysql.getConnection();
             DbDataHandler dbHandler = new DbDataHandler();
             alumnes = dbHandler.getAlumnesList(conn);
             Gson gson = new Gson();
-            JsonElement jsonElmnt;
-            JsonArray jsonArr;
-            jsonElmnt = gson.toJsonTree(alumnes);
-            jsonArr = jsonElmnt.getAsJsonArray();
+            JsonElement jsonElmnt = gson.toJsonTree(alumnes);
+            JsonArray jsonArr = jsonElmnt.getAsJsonArray();
             response.setContentType("application/json");
             response.getWriter().print(jsonArr);
         } catch (ClassNotFoundException ex) {
@@ -98,10 +93,7 @@ public class DbServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             String code = request.getParameter("code");
-            String url = "jdbc:mysql://localhost:3306/javatest_01";
-            String usr = "java_admin";
-            String pwd = "123456789";
-            MySQLConnection mysql = new MySQLConnection(url, usr, pwd);
+            MySQLConnection mysql = new MySQLConnection();
             Connection conn = mysql.getConnection();
             Alumnes alumne = new Alumnes();
             DbDataHandler dbHandler = new DbDataHandler();
