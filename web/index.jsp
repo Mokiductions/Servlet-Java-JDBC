@@ -19,16 +19,14 @@
                     $.ajax({
                         type: "POST",
                         url: "DbServlet",
+                        dataType: "json",
                         data: dataString,
                         success: function (responseJson) {
-                            $.each(responseJson, function (key, value) {
-                                $('#infoAlumne').html(value['nom']);
+                                $('#infoAlumne').html(responseJson.nom);
                                 $('#asi').show();
-                                $('#listAssignatures').html(value['assignatures']);
+                                $('#listAssignatures').html(responseJson.assignatures);
                                 $('#tut').show();
-                                $('#listTutories').html(value['tutories']);
-                            });
-
+                                $('#listTutories').html(responseJson.tutories);
                         }
                     });
 
