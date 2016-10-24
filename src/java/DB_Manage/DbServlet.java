@@ -103,17 +103,18 @@ public class DbServlet extends HttpServlet {
             String pwd = "123456789";
             MySQLConnection mysql = new MySQLConnection(url, usr, pwd);
             Connection conn = mysql.getConnection();
-            ArrayList<Alumnes> alumnes = new ArrayList<Alumnes>();
+            Alumnes alumne = new Alumnes();
             DbDataHandler dbHandler = new DbDataHandler();
-            alumnes = dbHandler.getAlumneInfo(conn, Integer.parseInt(code));
-            System.out.println(alumnes.get(0).getAssignatures());
+            alumne = dbHandler.getAlumneInfo(conn, Integer.parseInt(code));
+            System.out.println(alumne.getAssignatures());
             Gson gson = new Gson();
-            JsonElement jsonElmnt;
+            //JsonElement jsonElmnt;
             JsonArray jsonArr;
-            jsonElmnt = gson.toJsonTree(alumnes);
-            jsonArr = jsonElmnt.getAsJsonArray();
+            String jsonObj = gson.toJson(alumne);
+            //jsonArr = jsonObj.getAsJsonArray();
+            System.out.println(jsonObj);
             response.setContentType("application/json");
-            response.getWriter().print(jsonArr);
+            response.getWriter().print(jsonObj);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DbServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

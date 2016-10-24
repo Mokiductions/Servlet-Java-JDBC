@@ -35,8 +35,8 @@ public class DbDataHandler {
         return alumnes;
     }
 
-    public ArrayList<Alumnes> getAlumneInfo(Connection conn, int alumnCode) throws SQLException {
-        ArrayList<Alumnes> al = new ArrayList<Alumnes>();
+    public Alumnes getAlumneInfo(Connection conn, int alumnCode) throws SQLException {
+        Alumnes al = new Alumnes();
         Statement st;
         ResultSet rs;
         String ass = "", tut = "", nom = "", query;
@@ -61,9 +61,10 @@ public class DbDataHandler {
         while (rs.next()) {
             ass += rs.getString("nom") + "<br>";
         }
-        al.add(new Alumnes(alumnCode, nom));
-        al.get(0).setAssignatures(ass);
-        al.get(0).setTutories(tut);
+        al.setNom(nom);
+        al.setCodi(alumnCode);
+        al.setAssignatures(ass);
+        al.setTutories(tut);
         return al;
     }
 
