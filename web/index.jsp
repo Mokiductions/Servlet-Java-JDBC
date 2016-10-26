@@ -12,16 +12,33 @@
         <title>JDBC Servlet</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script>
+
+
             $(document).ready(function () {
+                
+                // Acciones al hacer click en '#xmlBtn'
+                $('#xmlBtn').click(function () {
+                    alert('Obtener XML');
+                });
+                
+                // Acciones al cambiar la selección del ComboBox
                 $('#alumnesList').change(function (event) {
-                    // Aquí la carga de la información de cada alumno al cambiar la selección
-                    var dataString = "code=" + $('#alumnesList').val();
-                    $.ajax({
-                        type: "POST",
-                        url: "DbServlet",
-                        dataType: "json",
-                        data: dataString,
-                        success: function (responseJson) {
+                    if ($('#alumnesList').val() === 'n') {
+                        $('#listAssignatures').hide();
+                        $('#listTutories').hide();
+                        $('#asi').hide();
+                        $('#infoAlumne').hide();
+                        $('#tut').hide();
+                        $('#xmlBtn').prop('disabled', true);
+                    } else {
+                        $('#xmlBtn').prop('disabled', false);
+                        var dataString = "code=" + $('#alumnesList').val();
+                        $.ajax({
+                            type: "POST",
+                            url: "DbServlet",
+                            dataType: "json",
+                            data: dataString,
+                            success: function (responseJson) {
                                 $('#infoAlumne').html(responseJson.nom);
                                 $('#asi').show();
                                 var assignatures = "";
@@ -35,10 +52,12 @@
                                     tutories += value + "<br/>";
                                 });
                                 $('#listTutories').html(tutories);
-                        }
-                    });
-
+                            }
+                        });
+                    }
                 });
+                
+                // Carga de opciones de la ComboBox
                 $.ajax({
                     type: "GET",
                     url: "DbServlet",
@@ -46,21 +65,22 @@
                     success: function (responseJson) {
                         if (responseJson !== null) {
                             var alumnSelect = $('#alumnesList');
-                            alumnSelect.find('option').remove();
+                            //alumnSelect.find('option').remove();
                             $.each(responseJson, function (key, value) {
                                 $('<option>').val(value['codi']).text(value['nom']).appendTo(alumnSelect);
                             });
                         }
                     }
                 });
-            });    
+            });
         </script>
     </head>
     <body style="font-family: arial;">
         <h1 style="padding-left: 80px;">Información por alumno</h1>
         <br/>
         <select id="alumnesList" style="font-size: 25px; margin-left: 80px;">
-        </select>
+            <option value="n">Selecciona un alumno para ver su información</option>
+        </select><input type="button" id="xmlBtn" style="font-size: 25px; margin-left: 70px;" value="Obtener XML" disabled/>
         <br/><br/>
         <div>
             <div id="infoAlumne" style="padding-left: 80px; margin-top: 15px; margin-bottom:20px; background-color: grey; font-size: 40px; font-weight: bold;"></div>
