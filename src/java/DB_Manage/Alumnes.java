@@ -5,6 +5,9 @@
  */
 package DB_Manage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Miquel Ginés Borràs
@@ -14,15 +17,21 @@ public class Alumnes {
 
     private int codi;
     private String nom;
-    private String assignatures, tutories;
+    private List<String> assignatures, tutories;
 
     public Alumnes() {
-
+        initializeLists();
     }
 
     public Alumnes(int codi, String nom) {
         this.codi = codi;
         this.nom = nom;
+        initializeLists();
+    }
+    
+    private void initializeLists() {
+        assignatures = new ArrayList<String>();
+        tutories = new ArrayList<String>();
     }
 
     public int getCodi() {
@@ -41,20 +50,30 @@ public class Alumnes {
         this.nom = nom;
     }
 
-        public String getAssignatures() {
+    public void addAssignatura(String assignatura) {
+        assignatures.add(assignatura);
+    }
+    
+    public List<String> getAssignatures() {
         return assignatures;
     }
 
-    public void setAssignatures(String assignatures) {
+    public void setAssignatures(List<String> assignatures) {
         this.assignatures = assignatures;
     }
 
-    public String getTutories() {
+    public void addTutoria(String tutoria) {
+        tutories.add(tutoria);
+    }
+    
+    public List<String> getTutories() {
         return tutories;
     }
 
-    public void setTutories(String tutories) {
+    public void setTutories(List<String> tutories) {
         this.tutories = tutories;
     }
+
+    
     
 }

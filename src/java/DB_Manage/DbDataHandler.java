@@ -36,35 +36,32 @@ public class DbDataHandler {
     }
 
     public Alumnes getAlumneInfo(Connection conn, int alumnCode) throws SQLException {
-        Alumnes al = new Alumnes();
+        Alumnes al;
         Statement st;
         ResultSet rs;
-        String ass = "", tut = "", nom = "", query;
+        String name = "", query;
         st = conn.createStatement();
         query = "select * from alumne where codi=" + alumnCode + ";";
         rs = st.executeQuery(query);
         while (rs.next()) {
-            nom = rs.getString("nom");
+            name = rs.getString("nom");
         }
+        al = new Alumnes(alumnCode, name);
         query = "select nom from tutoria left join tutoriaalumne on "
                 + "tutoria.codi=tutoriaalumne.codiTutoria where "
                 + "tutoriaalumne.codiAlumne=" + alumnCode + ";";
         rs = st.executeQuery(query);
         while (rs.next()) {
-            tut += rs.getString("nom") + "<br>";
+            al.addTutoria(rs.getString("nom"));
         }
-        query = "select assignatura.codi, assignatura.nom from assignatura "
+        query = "select assignatura.nom from assignatura "
                 + "inner join tutoria on assignatura.codi=tutoria.codiAssignatura "
                 + "inner join tutoriaalumne on tutoriaalumne.codiTutoria=tutoria.codi "
                 + "where tutoriaalumne.codiAlumne=" + alumnCode + ";";
         rs = st.executeQuery(query);
         while (rs.next()) {
-            ass += rs.getString("nom") + "<br>";
+            al.addAssignatura(rs.getString("nom"));
         }
-        al.setNom(nom);
-        al.setCodi(alumnCode);
-        al.setAssignatures(ass);
-        al.setTutories(tut);
         return al;
     }
 

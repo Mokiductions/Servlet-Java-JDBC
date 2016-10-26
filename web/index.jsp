@@ -24,9 +24,17 @@
                         success: function (responseJson) {
                                 $('#infoAlumne').html(responseJson.nom);
                                 $('#asi').show();
-                                $('#listAssignatures').html(responseJson.assignatures);
+                                var assignatures = "";
+                                $.each(responseJson.assignatures, function (key, value) {
+                                    assignatures += value + "<br/>";
+                                });
+                                $('#listAssignatures').html(assignatures);
                                 $('#tut').show();
-                                $('#listTutories').html(responseJson.tutories);
+                                var tutories = "";
+                                $.each(responseJson.tutories, function (key, value) {
+                                    tutories += value + "<br/>";
+                                });
+                                $('#listTutories').html(tutories);
                         }
                     });
 
