@@ -12,15 +12,22 @@
         <title>JDBC Servlet</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script>
-
-
             $(document).ready(function () {
-                
+
                 // Acciones al hacer click en '#xmlBtn'
                 $('#xmlBtn').click(function () {
-                    alert('Obtener XML');
+                    var dataString = "code=" + $('#alumnesList').val();
+                    $.ajax({
+                        type: "GET",
+                        url: "XmlServlet",
+                        dataType: "text",
+                        data: dataString,
+                        success: function (response) {
+                                alert(response);
+                        }
+                    });
                 });
-                
+
                 // Acciones al cambiar la selección del ComboBox
                 $('#alumnesList').change(function (event) {
                     if ($('#alumnesList').val() === 'n') {
@@ -56,7 +63,7 @@
                         });
                     }
                 });
-                
+
                 // Carga de opciones de la ComboBox
                 $.ajax({
                     type: "GET",
