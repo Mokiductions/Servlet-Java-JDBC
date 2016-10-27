@@ -23,13 +23,18 @@
                         dataType: "text",
                         data: dataString,
                         success: function (response) {
-                                alert(response);
+                            $('#xmlH').show();
+                            $('#xmlB').show();
+                            $('#xmlB').text(response);
+                            $('#xmlBtn').prop('disabled', true);
                         }
                     });
                 });
 
                 // Acciones al cambiar la selección del ComboBox
                 $('#alumnesList').change(function (event) {
+                    $('#xmlH').hide();
+                    $('#xmlB').hide();
                     if ($('#alumnesList').val() === 'n') {
                         $('#listAssignatures').hide();
                         $('#listTutories').hide();
@@ -59,6 +64,9 @@
                                     tutories += value + "<br/>";
                                 });
                                 $('#listTutories').html(tutories);
+                                $('#listAssignatures').show();
+                                $('#listTutories').show();
+                                $('#infoAlumne').show();
                             }
                         });
                     }
@@ -82,19 +90,25 @@
             });
         </script>
     </head>
-    <body style="font-family: arial;">
+    <body style="font-family: arial; background-color: #e6e6e6;">
         <h1 style="padding-left: 80px;">Información por alumno</h1>
         <br/>
         <select id="alumnesList" style="font-size: 25px; margin-left: 80px;">
             <option value="n">Selecciona un alumno para ver su información</option>
-        </select><input type="button" id="xmlBtn" style="font-size: 25px; margin-left: 70px;" value="Obtener XML" disabled/>
+        </select><input type="button" id="xmlBtn" style="font-size: 25px; margin-left: 70px;" value="Obtenir XML" disabled/>
         <br/><br/>
         <div>
             <div id="infoAlumne" style="padding-left: 80px; margin-top: 15px; margin-bottom:20px; background-color: grey; font-size: 40px; font-weight: bold;"></div>
-            <span id="asi" style="padding-left: 100px; display: none; font-size: 32px;">Assignatures:</span><br/>
-            <div id="listAssignatures" style="margin-bottom:20px; padding-left: 130px; font-size: 22px;"></div>
-            <span id="tut" style="padding-left: 100px; display: none; font-size: 32px;">Tutoríes:</span><br/>
-            <div id="listTutories" style="padding-left: 130px; font-size: 22px;"></div>
+            <div style="float: left; width: 47%;">
+                <span id="asi" style="padding-left: 100px; display: none; font-size: 32px;">Assignatures:</span><br/>
+                <div id="listAssignatures" style="margin-bottom:20px; padding-left: 130px; font-size: 22px;"></div>
+                <span id="tut" style="padding-left: 100px; display: none; font-size: 32px;">Tutoríes:</span><br/>
+                <div id="listTutories" style="padding-left: 130px; font-size: 22px;"></div>
+            </div>
+            <div style="float: left; width: 47%; padding-left: 30px;">
+                <span id="xmlH" style="padding-left: 40px; display: none; font-size: 32px;">Codi XML:</span><br/>
+                <pre lang="xml" id="xmlB" style="display: none; background-color:#EFF0F1; border: 1px solid black; border-radius: 8px; padding: 20px;"></pre>
+            </div>
         </div>
     </body>
 </html>
