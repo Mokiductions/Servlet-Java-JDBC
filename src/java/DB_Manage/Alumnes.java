@@ -7,12 +7,16 @@ package DB_Manage;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Miquel Ginés Borràs
  * @mail ginesborrasm@gmail.com
  */
+@XmlRootElement
 public class Alumnes {
 
     private int codi;
@@ -28,12 +32,13 @@ public class Alumnes {
         this.nom = nom;
         initializeLists();
     }
-    
+
     private void initializeLists() {
         assignatures = new ArrayList<String>();
         tutories = new ArrayList<String>();
     }
 
+    @XmlElement
     public int getCodi() {
         return codi;
     }
@@ -42,6 +47,7 @@ public class Alumnes {
         this.codi = codi;
     }
 
+    @XmlElement
     public String getNom() {
         return nom;
     }
@@ -53,7 +59,9 @@ public class Alumnes {
     public void addAssignatura(String assignatura) {
         assignatures.add(assignatura);
     }
-    
+
+    @XmlElementWrapper
+    @XmlElement
     public List<String> getAssignatures() {
         return assignatures;
     }
@@ -65,7 +73,9 @@ public class Alumnes {
     public void addTutoria(String tutoria) {
         tutories.add(tutoria);
     }
-    
+
+    @XmlElementWrapper
+    @XmlElement
     public List<String> getTutories() {
         return tutories;
     }
@@ -74,6 +84,4 @@ public class Alumnes {
         this.tutories = tutories;
     }
 
-    
-    
 }

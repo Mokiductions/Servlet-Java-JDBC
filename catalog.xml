@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/gines/OneDrive/Documents/NetBeansProjects/20161019_Servlet-JDBC/alumnes_schema.xsd" uri="src/conf/xml-resources/jaxb/JAXBindingAlumnes/alumnes_schema.xsd"/>
+</catalog>

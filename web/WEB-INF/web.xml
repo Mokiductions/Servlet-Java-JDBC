@@ -4,9 +4,17 @@
         <servlet-name>DbServlet</servlet-name>
         <servlet-class>DB_Manage.DbServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>XmlServlet</servlet-name>
+        <servlet-class>DB_Manage.XmlServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DbServlet</servlet-name>
         <url-pattern>/DbServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>XmlServlet</servlet-name>
+        <url-pattern>/XmlServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
