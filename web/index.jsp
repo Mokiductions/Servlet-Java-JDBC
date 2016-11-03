@@ -13,7 +13,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
-
                 // Acciones al hacer click en '#xmlBtn'
                 $('#xmlBtn').click(function () {
                     var dataString = "code=" + $('#alumnesList').val();
@@ -35,41 +34,32 @@
                 $('#alumnesList').change(function (event) {
                     $('#xmlH').hide();
                     $('#xmlB').hide();
-                    if ($('#alumnesList').val() === 'n') {
-                        $('#listAssignatures').hide();
-                        $('#listTutories').hide();
-                        $('#asi').hide();
-                        $('#infoAlumne').hide();
-                        $('#tut').hide();
-                        $('#xmlBtn').prop('disabled', true);
-                    } else {
-                        $('#xmlBtn').prop('disabled', false);
-                        var dataString = "code=" + $('#alumnesList').val();
-                        $.ajax({
-                            type: "POST",
-                            url: "DbServlet",
-                            dataType: "json",
-                            data: dataString,
-                            success: function (responseJson) {
-                                $('#infoAlumne').html(responseJson.nom);
-                                $('#asi').show();
-                                var assignatures = "";
-                                $.each(responseJson.assignatures, function (key, value) {
-                                    assignatures += value + "<br/>";
-                                });
-                                $('#listAssignatures').html(assignatures);
-                                $('#tut').show();
-                                var tutories = "";
-                                $.each(responseJson.tutories, function (key, value) {
-                                    tutories += value + "<br/>";
-                                });
-                                $('#listTutories').html(tutories);
-                                $('#listAssignatures').show();
-                                $('#listTutories').show();
-                                $('#infoAlumne').show();
-                            }
-                        });
-                    }
+                    $('#xmlBtn').prop('disabled', false);
+                    var dataString = "code=" + $('#alumnesList').val();
+                    $.ajax({
+                        type: "POST",
+                        url: "DbServlet",
+                        dataType: "json",
+                        data: dataString,
+                        success: function (responseJson) {
+                            $('#infoAlumne').html(responseJson.nom);
+                            $('#asi').show();
+                            var assignatures = "";
+                            $.each(responseJson.assignatures, function (key, value) {
+                                assignatures += value + "<br/>";
+                            });
+                            $('#listAssignatures').html(assignatures);
+                            $('#tut').show();
+                            var tutories = "";
+                            $.each(responseJson.tutories, function (key, value) {
+                                tutories += value + "<br/>";
+                            });
+                            $('#listTutories').html(tutories);
+                            $('#listAssignatures').show();
+                            $('#listTutories').show();
+                            $('#infoAlumne').show();
+                        }
+                    });
                 });
 
                 // Carga de opciones de la ComboBox
@@ -80,10 +70,11 @@
                     success: function (responseJson) {
                         if (responseJson !== null) {
                             var alumnSelect = $('#alumnesList');
-                            //alumnSelect.find('option').remove();
+                            alumnSelect.find('option').remove();
                             $.each(responseJson, function (key, value) {
                                 $('<option>').val(value['codi']).text(value['nom']).appendTo(alumnSelect);
                             });
+                            $('#alumnesList').prop('disabled', false);
                         }
                     }
                 });
@@ -93,8 +84,8 @@
     <body style="font-family: arial; background-color: #e6e6e6;">
         <h1 style="padding-left: 80px;">Información por alumno</h1>
         <br/>
-        <select id="alumnesList" style="font-size: 25px; margin-left: 80px;">
-            <option value="n">Selecciona un alumno para ver su información</option>
+        <select id="alumnesList" style="font-size: 25px; margin-left: 80px;" disabled>
+            <option>Cargando lista de alumnos...</option>
         </select><input type="button" id="xmlBtn" style="font-size: 25px; margin-left: 70px;" value="Obtenir XML" disabled/>
         <br/><br/>
         <div>

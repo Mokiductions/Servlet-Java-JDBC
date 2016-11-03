@@ -5,7 +5,6 @@
  */
 package DB_Manage;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -63,7 +62,7 @@ public class XmlServlet extends HttpServlet {
             Connection conn = mysql.getConnection();
             Alumnes al = new Alumnes();
             al = dbHandler.getAlumneInfo(conn, Integer.parseInt(code));
-            response.setContentType("text/plain");
+            response.setContentType("text/xml");
             response.getWriter().print(xmlDH.alumneToXml(al));
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XmlServlet.class.getName()).log(Level.SEVERE, null, ex);
